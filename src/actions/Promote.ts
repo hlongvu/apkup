@@ -2,7 +2,7 @@ import Debug from 'debug'
 import { JWT } from 'google-auth-library'
 import { androidpublisher_v3 } from 'googleapis'
 
-import { Edit, IEditParams } from './../Edit'
+import { Edit, IEditParams, IShareRespone } from './../Edit'
 
 /**
  * @ignore
@@ -36,11 +36,12 @@ export class Promote extends Edit {
     this.promoteParams = promoteParams
   }
 
-  public async makeEdits () {
+  public async makeEdits (): Promise<IShareRespone | string> {
     await this.findPreviousTrack()
     await this.findPreviousRelease()
     await this.assignTrack()
     await this.removePreviousTrack()
+    return ''
   }
 
   private findRelease (track: any) {

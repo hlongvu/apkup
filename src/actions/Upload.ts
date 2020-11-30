@@ -3,7 +3,7 @@ import Debug from 'debug'
 import { createReadStream, promises } from 'fs'
 import { JWT } from 'google-auth-library'
 import { extname } from 'path'
-import { Edit, IEditParams } from '../Edit'
+import { Edit, IEditParams, IShareRespone } from '../Edit'
 
 /**
  * @ignore
@@ -57,10 +57,11 @@ export class Upload extends Edit {
     this.uploadParams.releaseNotes = uploadParams.releaseNotes || []
   }
 
-  public async makeEdits () {
+  public async makeEdits (): Promise<IShareRespone | string> {
     await this.checkFiles()
     await this.uploadFiles()
     await this.assignTrack()
+    return 'ok'
   }
 
   private async checkFileObject (fileObject: IUploadFile) {

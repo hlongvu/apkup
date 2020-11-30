@@ -3,6 +3,7 @@ import { JWT } from 'google-auth-library'
 import { google } from 'googleapis'
 import { IPromoteParams, Promote } from './actions/Promote'
 import { IUploadParams, Upload } from './actions/Upload'
+import { IShareParams, Share } from './actions/Share'
 import { IEditParams, IEditResponse } from './Edit'
 
 /* Object with Authentication information. */
@@ -101,5 +102,13 @@ export class Apkup {
   public async promote (promoteParams: IPromoteParams, editParams: IEditParams) {
     const promote = new Promote(this.client, editParams, promoteParams)
     return promote.run()
+  }
+
+  public async share (
+    shareParams: IShareParams,
+    editParams: IEditParams
+  ): Promise<IEditResponse> {
+    const share = new Share(this.client, shareParams, editParams)
+    return share.run()
   }
 }

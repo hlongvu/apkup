@@ -5,6 +5,7 @@ import yargs from 'yargs'
 
 import { promote } from './promote'
 import { upload } from './upload'
+import { share } from './share'
 
 const pkg = JSON.parse(
   fs.readFileSync(path.join(__dirname, '../../package.json'), 'utf-8')
@@ -39,6 +40,7 @@ const argv = yargs
   )
   .command(promote)
   .command(upload)
+  .command(share)
   .env('APKUP')
   .help('help')
   .alias('help', 'h').argv

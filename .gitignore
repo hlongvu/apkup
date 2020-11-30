@@ -9,3 +9,5 @@ out
 dist
 docs
 auth.json
+.idea/
+key.json

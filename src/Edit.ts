@@ -12,10 +12,16 @@ export interface IEditParams {
   /** ID of the package to be edited. */
   packageName: string
 }
+export interface IShareRespone {
+  downloadUrl?: string,
+  sha256?: string,
+  certificateFingerprint?: string
+}
 
 export interface IEditResponse {
   /** ID of the package that was edited. */
-  packageName?: string
+  packageName?: string,
+  shareResult?: IShareRespone | string
 }
 
 /**
@@ -61,7 +67,7 @@ export class Edit {
   /**
    * This method should be overridden to make your own changes.
    */
-  public async makeEdits () {
+  public async makeEdits (): Promise<IShareRespone | string> {
     throw new Error('makeEdits not implemented!')
   }
 
@@ -76,13 +82,14 @@ export class Edit {
     await this.createEdit()
 
     // run the edits (this should be overridden via a sub-class)
-    await this.makeEdits()
+    const result = await this.makeEdits()
 
     // commit the changes
     await this.commitChanges()
 
     return {
-      packageName: this.editParams.packageName
+      packageName: this.editParams.packageName,
+      shareResult: result
     }
   }
 
